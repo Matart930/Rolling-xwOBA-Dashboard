@@ -12,7 +12,7 @@ To install and run this dashboard, create a folder on your desktop and download 
 contains the MLB data for the five-hitters that are pre-loaded onto this dashboard: Aaron Judge, Juan Soto, Shohei Ohtani, George Springer, and Kyle Schwarber. If you wish to look at the rolling xwOBA for different
 players, feel free to alter the names and respective playerid values in the pull_data.R file (lookup statcast playerid for whichever player you would like) (Note: you may also need to change the "selected" player
 in the roll_xwoba_compare.R ui before running the app in RStudio. To run the dashboard, open the roll_xwoba_compare.R file in RStudio and click the "Run App" button in the top right. Be sure that all the necessary 
-libraries are installed (shiny, dplyr, ggplot2, baseballr). If you chose to change the players in the pull_data.R file, make sure to run the entirety of that script before running the shiny app. (this will update the statcast_2025.rds file).
+libraries are installed (shiny, dplyr, ggplot2, plotly, baseballr). If you chose to change the players in the pull_data.R file, make sure to run the entirety of that script before running the shiny app. (this will update the statcast_2025.rds file).
 
 ### Troubleshooting
 
@@ -25,6 +25,10 @@ to date version of the baseballr package:
 ## Usage
 
 Once the dashboard is loaded, select players from the checkboxes to add their rolling xwOBA to the plot and use the slider to adjust the number of PA's that are included in the moving average calculation.
+
+## Update 03/09/26:
+- Integrated plotly library to show xwOBA value and date of last PA on hover
+- Select "Compare on hover" to directly compare rolling xwOBA at specific plate appearances
 
 ## File descriptions
 
