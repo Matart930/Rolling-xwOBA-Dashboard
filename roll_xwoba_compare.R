@@ -22,7 +22,7 @@ ui <- fluidPage(
         "players",
         "Select Players:",
         choices = names(players),
-        selected = "Jose Altuve"
+        selected = "Shohei Ohtani"
       )
     ),
     
@@ -75,5 +75,6 @@ server <- function(input, output, session){
   })
   
 }
+
 
 shinyApp(ui, server)
