@@ -17,8 +17,8 @@ make sure to run the entirety of that script before running the shiny app. (this
 ### Troubleshooting
 
 If the statcast_search function fails to run in the pull_data.R file with an error along the lines of: (Error in setnames(x, value) : 
-Can't assign 92 names to a 118-column data.table). Run the following lines of code to ensure you are using the most up to date
-version of the baseballr package:
+Can't assign 92 names to a 118-column data.table). Run the following lines of code in your console to ensure you are using the most up
+to date version of the baseballr package:
 - install.packages("baseballr")
 - remotes::install_github("BillPetti/baseballr")
 
