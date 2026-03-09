@@ -1,4 +1,4 @@
-# Rolling xwOBA Dashboard Comparison
+# Rolling xwOBA Comparison Dashboard
 
 This dashboard was made using R Shiny and data pulled from statcast to compare the Rolling xwOBA (moving average) of various MLB players from the 2025 season (regular and postseason included).
 xwOBA stands for expected weighted on base average and it encompasses all aspects of batting that a hitter can control at the plate (AB + BB - IBB + SF + HBP), and weighs each outcome based on it's
