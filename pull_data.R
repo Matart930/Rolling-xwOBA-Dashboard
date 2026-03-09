@@ -4,7 +4,7 @@ library(dplyr)
 players <- c(
   "Shohei Ohtani" = 660271,
   "Aaron Judge" = 592450,
-  "Jose Altuve" = 514888,
+  "George Springer" = 543807,
   "Juan Soto" = 665742,
   "Kyle Schwarber" = 656941
 )
@@ -27,4 +27,5 @@ all_data <- lapply(names(players), function(name) {
 
 saveRDS(all_data,
         file = file.path(dirname(rstudioapi::getActiveDocumentContext()$path),
+
                          "statcast_2025.rds"))
