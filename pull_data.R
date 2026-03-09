@@ -1,6 +1,8 @@
 library(baseballr)
 library(dplyr)
 
+not_in_woba <- c("intent_walk", "sac_bunt")
+
 players <- c(
   "Shohei Ohtani" = 660271,
   "Aaron Judge" = 592450,
@@ -18,7 +20,7 @@ all_data <- lapply(names(players), function(name) {
     end_date = "2025-11-01",
     playerid = players[name]
   ) %>%
-    filter(events != "" & !is.na(events)) %>%
+    filter(events != "" & !is.na(events) &  !(events %in% not_in_woba)) %>%
     arrange(game_date, game_pk, at_bat_number) %>%
     mutate(player_name = name)
   
@@ -29,3 +31,4 @@ saveRDS(all_data,
         file = file.path(dirname(rstudioapi::getActiveDocumentContext()$path),
 
                          "statcast_2025.rds"))
+
