@@ -14,6 +14,14 @@ players, feel free to alter the names and respective playerid values in the pull
 in RStudio and click the "Run App" button in the top right. Be sure that all the necessary libraries are installed (shiny, dplyr, ggplot2, baseballr). If you chose to change the players in the pull_data.R file,
 make sure to run the entirety of that script before running the shiny app. (this will update the statcast_2025.rds file).
 
+### Troubleshooting
+
+If the statcast_search function fails to run in the pull_data.R file with an error along the lines of: (Error in setnames(x, value) : 
+Can't assign 92 names to a 118-column data.table). Run the following lines of code to ensure you are using the most up to date
+version of the baseballr package:
+- install.packages("baseballr")
+- remotes::install_github("BillPetti/baseballr")
+
 ## Usage
 
 Once the dashboard is loaded, select players from the checkboxes to add their rolling xwOBA to the plot and use the slider to adjust the number of PA's that are included in the moving average calculation.
