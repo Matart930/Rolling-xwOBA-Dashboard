@@ -5,7 +5,6 @@ rollxwOBA <- function(df, window_size) {
   for(i in 1:(n - window_size + 1)) {
     
     total_xwoba <- 0
-    total_iBB <- 0
     
     for(j in i:(i + window_size - 1)) {
       
@@ -14,12 +13,11 @@ rollxwOBA <- function(df, window_size) {
       if(length(xwoba_val) == 0 || is.na(xwoba_val)) {
         xwoba_val <- 0
       }
-      total_iBB <- total_iBB + (df$events[j] == "intent_walk")
       
       total_xwoba <- total_xwoba + xwoba_val
     }
     
-   rolling_xwoba[i] <- total_xwoba / (window_size - total_iBB)
+   rolling_xwoba[i] <- total_xwoba / window_size
   }
   
   xwoba_tail <- tail(rolling_xwoba, window_size)
@@ -31,4 +29,5 @@ rollxwOBA <- function(df, window_size) {
     date = tail(df$game_date[1:n], window_size)
   )
   return(rolling_xwoba_df)
+
 }
