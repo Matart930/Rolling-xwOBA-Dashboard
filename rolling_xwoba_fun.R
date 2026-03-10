@@ -17,7 +17,7 @@ rollxwOBA <- function(df, window_size) {
       total_xwoba <- total_xwoba + xwoba_val
     }
     
-   rolling_xwoba[i] <- total_xwoba / window_size
+   rolling_xwoba[i] <- total_xwoba / (window_size)
   }
   
   xwoba_tail <- tail(rolling_xwoba, window_size)
@@ -29,5 +29,21 @@ rollxwOBA <- function(df, window_size) {
     date = tail(df$game_date[1:n], window_size)
   )
   return(rolling_xwoba_df)
-
 }
+
+library(forecast)
+
+forecast_xwoba <- function(xwoba_series, last_pa, n_future = 20) {
+  
+  ts_data <- ts(as.numeric(xwoba_series))
+  fit <- auto.arima(ts_data)
+  fc <- forecast(fit, h = n_future, level = 95)
+  
+  data.frame(
+    pa = (last_pa + 1):(last_pa + n_future),
+    forecast = as.numeric(fc$mean),
+    lower = as.numeric(fc$lower[, 1]),
+    upper = as.numeric(fc$upper[, 1])
+  )
+}
+
