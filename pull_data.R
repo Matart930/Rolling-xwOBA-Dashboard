@@ -1,7 +1,7 @@
 library(baseballr)
 library(dplyr)
 
-not_in_woba <- c("intent_walk", "sac_bunt")
+not_in_woba <- c("intent_walk", "sac_bunt", "catcher_interf")
 
 players <- c(
   "Shohei Ohtani" = 660271,
@@ -31,4 +31,5 @@ saveRDS(all_data,
         file = file.path(dirname(rstudioapi::getActiveDocumentContext()$path),
 
                          "statcast_2025.rds"))
+
 
