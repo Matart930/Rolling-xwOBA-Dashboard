@@ -41,5 +41,5 @@ Once the dashboard is loaded, select players from the checkboxes to add their ro
 
 - pull_data.R: this file is used to pull the data for the respective MLB players you would like to look at and store that into a dataframe, all_data.
 - roll_xwoba_compare.R: this file contains the ui and server code for running the dashboard using R shiny. If there is anything you wish to edit about the plot, you can change it here.
-- rolling_xwoba_fun.R: this file contains the function used to convert the raw PA data pulled for each player and calculate their respective rolling xwOBA.
+- rolling_xwoba_fun.R: this file contains the function used to convert the raw PA data pulled for each player and calculate their respective rolling xwOBA as well as the function used to forecast the player's next $n$ plate appearances.
 - statcast_2025.rds: this file contains the data for each respective MLB player used for comparison in the dashboard. This updates every time pull_data.R is ran.
