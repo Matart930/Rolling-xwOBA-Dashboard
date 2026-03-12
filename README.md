@@ -34,6 +34,9 @@ Once the dashboard is loaded, select players from the checkboxes to add their ro
 - forecast_xwoba function added to rolling_xwoba_fun.R to forecast future values of Rolling xwOBA
 - Integrated "Show Forecast" functionality for when one player is selected to view their projected xwOBA in their next plate appearances (forecast future 5-100 future values with a step size of 5)
 
+## Update 03/12/26:
+- "Animate" button implemented allows user to see how players' rolling xwOBA changes as the plate appearance window size, as well as number of last plate appearances increases.
+
 ## File descriptions
 
 - pull_data.R: this file is used to pull the data for the respective MLB players you would like to look at and store that into a dataframe, all_data.
