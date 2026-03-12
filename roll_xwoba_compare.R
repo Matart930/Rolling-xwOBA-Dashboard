@@ -19,6 +19,8 @@ ui <- fluidPage(
                   value = 100,
                   step = 10),
       
+      actionButton("animate_windows", "Animate 50–200 PA"),
+      
       checkboxGroupInput(
         "players",
         "Select Players:",
@@ -50,10 +52,48 @@ ui <- fluidPage(
 
 server <- function(input, output, session){
   
+  
   observe({
     if(length(input$players) != 1) {
       updateCheckboxInput(session, "show_forecast", value = FALSE)
     }
+  })
+  
+  animating <- reactiveVal(FALSE)
+  current_window <- reactiveVal(40)
+  
+  observeEvent(input$animate_windows, {
+    
+    if (!is.null(input$show_forecast) && isTRUE(input$show_forecast)) {
+      showNotification(
+        "Turn off forecast to animate rolling xwOBA windows.",
+        type = "warning"
+      )
+      return()
+    }
+    
+    current_window(40)
+    updateSliderInput(session, "pa_window", value = 40)
+    animating(TRUE)
+  })
+  
+  
+  observe({
+    req(animating())
+    
+    invalidateLater(800, session)
+    
+    isolate({
+      w <- current_window()
+      
+      if (w < 200) {
+        w_next <- w + 10
+        current_window(w_next)
+        updateSliderInput(session, "pa_window", value = w_next)
+      } else {
+        animating(FALSE)
+      }
+    })
   })
   
   output$rollingPlot <- renderPlotly({
@@ -187,8 +227,12 @@ server <- function(input, output, session){
     ggplotly(p, tooltip = "text", source = "rolling_plot") %>%
       layout(
         hoverlabel = list(font = list(color = "white"))
-      )
+      ) 
+    
   })
+  
+
+  
 }
 
 shinyApp(ui, server)
