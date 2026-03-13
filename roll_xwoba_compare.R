@@ -19,7 +19,7 @@ ui <- fluidPage(
                   value = 100,
                   step = 10),
       
-      actionButton("animate_windows", "Animate 50–200 PA"),
+      actionButton("animate_windows", "Animate"),
       
       checkboxGroupInput(
         "players",
@@ -81,12 +81,12 @@ server <- function(input, output, session){
   observe({
     req(animating())
     
-    invalidateLater(800, session)
+    invalidateLater(500, session)
     
     isolate({
       w <- current_window()
       
-      if (w < 200) {
+      if (w < 300) {
         w_next <- w + 10
         current_window(w_next)
         updateSliderInput(session, "pa_window", value = w_next)
