@@ -137,22 +137,26 @@ server <- function(input, output, session){
         xwoba_label = sub("^0", "", sprintf("%.3f", rolling_xwoba))
       )
     
+    if (length(input$players) == 1) {
+      start_pa <- min(rolling_data$pa)
+      end_pa <- max(rolling_data$pa)
+      
+      start_date <- min(rolling_data$date)
+      end_date <- max(rolling_data$date)
+      
+      start_label <- paste0("Start: ", format(start_date, "%b %d"))
+      end_label <- paste0("End: ", format(end_date, "%b %d"))
+    }
+    
+    
     # Base ggplot lines
-    p <- ggplot(
-      rolling_data,
-      aes(
-        x = pa,
-        y = rolling_xwoba,
-        color = player_name,
-        group = player_name,
-        text = paste0(
-          "<b>", player_name, "</b>",
-          "<br>xwOBA: ", xwoba_label,
-          "<br>Last PA: ", date_label
-        )
-      )
-    ) +
-      geom_line(linewidth = 1) +
+    p <- ggplot(rolling_data,
+                aes(x = pa, y = rolling_xwoba, color = player_name, group = player_name,
+                    text = paste0("<b>", player_name, "</b>",
+                                  "<br>xwOBA: ", xwoba_label,
+                                  "<br>Last PA: ", date_label)
+                )) +
+      geom_line(size = 1) +
       geom_hline(yintercept = y_breaks, linetype = "dashed", color = "gray") +
       scale_y_continuous(
         breaks = y_breaks,
@@ -162,9 +166,7 @@ server <- function(input, output, session){
       theme_minimal() +
       theme(
         panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.text.x = element_blank(),
-        axis.ticks.x = element_blank()
+        panel.grid.minor.x = element_blank()
       ) +
       labs(
         x = NULL,
@@ -172,6 +174,22 @@ server <- function(input, output, session){
         color = "Player Key",
         title = paste0("Rolling xwOBA (", window_size, " PAs)")
       )
+    
+    if (length(input$players) == 1) {
+      p <- p +
+        scale_x_continuous(
+          breaks = c(start_pa, end_pa),
+          labels = c(start_label, end_label)
+        )
+    } else {
+      p <- p +
+        theme(
+          axis.text.x = element_blank(),
+          axis.ticks.x = element_blank()
+        )
+    }
+   
+    
     
     # Forecast only if exactly one player is selected
     if (isTRUE(input$show_forecast) && length(input$players) == 1) {
